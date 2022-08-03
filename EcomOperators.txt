@@ -1,0 +1,53 @@
+use Bhavnacorp
+
+create table Products(id int primary key,name nvarchar(20),qty int,price int);
+select * from Products
+
+insert into Products values(1,'laptop',100,40000),(2,'chairs',50,500),(3,'mixer',100,22000),(4,'mobiles',95,27000),(5,'juicer',100,13000),(6,'bottles',100,40),(7,'kurti',100,1000),(8,'spects',100,12000)
+update Products set name=null where id=4
+
+--union
+select * from Products    --1 to check with diff no of insertions
+union 
+select * from  ProductDetailsView
+
+--like
+select * from ProductDetailsView where prodname like '%a%'
+select * from ProductDetailsView where prodname like '_a%'
+select * from ProductDetailsView where prodname not like '%a%'
+
+--wildcard
+select * from Products where name like '[mlb]%';
+select * from Products where name like 'j[ul]%';
+
+--in
+select Qtyordered from OrderDetailsView where totalprice in(49000,1200)
+select * from OrderDetailsView where totalprice not in(49000,1200)
+select * from ProductDetailsView where prodname not in('laptop','chairs')
+
+--intersect
+select * from Products   
+intersect
+select * from  ProductDetailsView
+
+--except
+select * from Products   
+except
+select * from  ProductDetailsView
+
+--Between
+select * from OrderDetailsView where totalprice Between 44000 and  80000
+
+--exists
+select * from OrderDetailsView  where exists (select * from CustomerDetailsView where address='noida') --true
+select * from Products  where exists (select * from CustomerDetailsView where address='delhi') --false
+
+--is null
+select * from Products where name is null
+
+
+
+
+
+
+
